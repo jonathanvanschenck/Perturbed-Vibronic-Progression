@@ -1,17 +1,12 @@
 # -*- coding: utf-8 -*-
-"""
-Created on Sat Sep 22 15:27:46 2018
-
-@author: jonat
-"""
+#%%Set Path to folder containing ExampleData.csv and fit.py
+loc = 'Path/to/folder'
 #%%Imports
 import numpy as np
-loc = 'C:/Users/jonat/Box Sync/_School 2018-2019/_2Fall/XylDoubleFits'
 import sys 
 import os
 sys.path.append(os.path.abspath(loc))
 import fit
-#from XylDoubleFits import fit
 #Pull Spectrum
 xylCB = np.genfromtxt(loc+'/XylInCBAbs2.csv',
                       skip_header=1,delimiter=',')
@@ -46,7 +41,7 @@ fitTest.createFitParamBounds(((.01,  1.8,  0.15,  0.1,  .01,
 fitTest.performFit()
 fitTest.plot()
 fitTest.printParam()
-#%%Fit Double better
+#%%Fit Double, but force S and Ev to be the same
 fitTest = fit.doubleFit(1240/xylCB[:,0],xylCB[:,4])
 fitTest.createFitRegion(1.6,2.4)
 fitTest.createPlotRegion(1.5,2.5)
@@ -62,7 +57,7 @@ fitTest.createFitParamBounds(((.001, 1.8,  0.15,  0.1,  .01,
 fitTest.performFit()
 fitTest.plot()
 fitTest.printParam()
-#%%Fit Double better EXTREME!
+#%%Fit Double, but also force sig0 to be the same
 fitTest = fit.doubleFit(1240/xylCB[:,0],xylCB[:,4])
 fitTest.createFitRegion(1.6,2.4)
 fitTest.createPlotRegion(1.5,2.5)
@@ -78,7 +73,7 @@ fitTest.createFitParamBounds(((.001, 1.8,  0.15,  0.1,  .01,
 fitTest.performFit()
 fitTest.plot()
 fitTest.printParam()
-#%%Fit Double better EXTREME!
+#%%Fit Double, now allow Dsig to varry, but force it to be doubled
 fitTest = fit.doubleFit(1240/xylCB[:,0],xylCB[:,4])
 fitTest.createFitRegion(1.7,2.4)
 fitTest.createPlotRegion(1.5,2.5)
@@ -94,8 +89,8 @@ fitTest.createFitParamBounds(((.001, 1.8,  0.15,  0.1,  .01,   0.0,
 fitTest.performFit()
 fitTest.plot()
 fitTest.printParam()
-#%%Fit Double better EXTREME!
-fitTest = fit.doubleFit(1240/xylCB[:,0],xylCB[:,4])#,fun=absFit.lineshape.Gauss)
+#%%Fit Double, set Ev, becuase the previous block doesn't fit quite right
+fitTest = fit.doubleFit(1240/xylCB[:,0],xylCB[:,4])
 fitTest.createFitRegion(1.5,2.4)
 fitTest.createPlotRegion(1.5,2.5)
 fitTest.initializeFitParams(np.array([.01,1.82,.175,0.6,0.06,0.1,0.0,
