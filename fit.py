@@ -11,7 +11,7 @@ systems.
 
 
 Dependancies:
-absFit.lineshape:  Used for "absLineMu" which is lineshape for fitting
+lineshape:         Used for "absLineMu" which is lineshape for fitting
 numpy:             Used for array handling
 matplotlib:        Uses pyplot for basic plotting
 scipy.optimize:    Uses least_squares for curve fitting
@@ -23,7 +23,7 @@ singleFit:         Fits a single absorption spectrum with a single vibronic
 doubleFit:         Fits a single absorption spectrum with two vibronic
                     progressions
 """
-import absFit.lineshape as ls
+import lineshape as ls
 import numpy as np
 from matplotlib import pyplot as plt
 from scipy.optimize import least_squares
