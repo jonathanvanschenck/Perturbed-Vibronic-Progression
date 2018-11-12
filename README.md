@@ -1,5 +1,5 @@
 # PerturbedVibronicProgression
-Provides curving fitting for perturbed vibronic progressions
+Provides curving fitting for perturbed vibronic progressions. See ExampleScript.py and ExampleData.csv to see this fitting in practice.
 
 Best Practice for 'fit.singleFit'
 
