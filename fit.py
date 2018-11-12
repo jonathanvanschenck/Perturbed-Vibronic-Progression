@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-Created on 11/8/18 Updated:
+Created on 11/8/18 Updated: 11/12/18
 Written By: Jonathan D B Van Schenck
 
 This module is used to fit an absorption spectrum with a vibronic
@@ -58,7 +58,6 @@ singleFit:         Fits a single absorption spectrum with a single vibronic
 doubleFit:         Fits a single absorption spectrum with two vibronic
                     progressions
 """
-#import absFit.lineshape as ls
 import numpy as np
 from math import factorial
 from matplotlib import pyplot as plt
