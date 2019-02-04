@@ -271,7 +271,7 @@ def absLineMu(x,p,n,fun=Glorz):
     #p=area, Ex , Ev , S , sig0 ,Dsig , Jnn/Ev
     #   0    1    2    3     4    5       6  
     dx = np.absolute(np.mean(x[1:]-x[:-1]))
-    x2 = np.arange(p[1]-5*p[2],p[1]+(n+5)*p[5],dx)
+    x2 = np.arange(p[1]-5*p[2],p[1]+(n+5)*p[2],dx)
     res = overlap(0,p[3])*Wcontrib(0,p[3],p[6])*fun(x,p[1]+p[2]*(0+2*p[6]*overlap(0,p[3])),p[4]*(1+0*p[5]))
     res2 = overlap(0,p[3])*Wcontrib(0,p[3],p[6])*fun(x2,p[1]+p[2]*(0+2*p[6]*overlap(0,p[3])),p[4]*(1+0*p[5]))
     for m in np.arange(1,n):
