@@ -323,6 +323,45 @@ def absLineMu2(x,p,n,fun=Glorz):
     normConst = intDiscrete(x2,res2)
     return p[0]*res/normConst
     
+def Glorzpm(x,mu,sig):
+    return (sig*(x-mu))/((np.pi)*((x-mu)**2+(sig/2)**2)**2)
+def Glorzps(x,mu,sig):
+    return 1/((2*np.pi)*((x-mu)**2+(sig/2)**2))-sig/((4*np.pi)*((x-mu)**2+(sig/2)**2)**2)
+def absLineMuSol(x,p,n,fun):
+    #p=area, Ex , Ev , S , sig0 ,Dsig 
+    #   0    1    2    3     4    5   
+    res = np.zeros(len(x))
+    overlap = (np.exp(-p[3])*p[3]**0)/(factorial(0))
+    res = fun(x,p[1]+0*p[2],p[4]*(1+0*p[5]))*overlap
+    for m in np.arange(1,n):
+        overlap = (np.exp(-p[3])*p[3]**m)/(factorial(m))
+        res += fun(x,p[1]+m*p[2],p[4]*(1+m*p[5]))*overlap
+    return p[0]*res
+def absLineMuSol_withGrad(x,p,n,fun,funpm,funps):
+    #p=area, Ex , Ev , S , sig0 ,Dsig 
+    #   0    1    2    3     4    5   
+    res = np.zeros((7,len(x)))
+    overlap = (np.exp(-p[3])*p[3]**0)/(factorial(0))
+    res[0] = fun(x,p[1]+0*p[2],p[4]*(1+0*p[5]))*overlap
+    res[1] = 1*res[0]
+    res[2] = funpm(x,p[1]+0*p[2],p[4]*(1+0*p[5]))*overlap
+    res[3] = 0*funpm(x,p[1]+0*p[2],p[4]*(1+0*p[5]))*overlap
+    res[4] = -res[0]+0*res[0]/p[3]
+    res[5] = (1+0*p[5])*funps(x,p[1]+0*p[2],p[4]*(1+0*p[5]))*overlap
+    res[6] = p[4]*0*funps(x,p[1]+0*p[2],p[4]*(1+0*p[5]))*overlap
+    for m in np.arange(1,n):
+        overlap = (np.exp(-p[3])*p[3]**m)/(factorial(m))
+        resN = fun(x,p[1]+m*p[2],p[4]*(1+m*p[5]))*overlap
+        res[0] += 1*resN
+        res[1] += 1*resN
+        res[2] += funpm(x,p[1]+m*p[2],p[4]*(1+m*p[5]))*overlap
+        res[3] += m*funpm(x,p[1]+m*p[2],p[4]*(1+m*p[5]))*overlap
+        res[4] += -resN+m*resN/p[3]
+        res[5] += (1+m*p[5])*funps(x,p[1]+m*p[2],p[4]*(1+m*p[5]))*overlap
+        res[6] += p[4]*m*funps(x,p[1]+m*p[2],p[4]*(1+m*p[5]))*overlap
+    res[1] = res[1]/p[0]
+    return p[0]*res
+
 class singleFit:
     """
     This module fits absorption data with a single vibronic progression of the 
